@@ -1,5 +1,5 @@
 image:
-  file: postgres
+  file: .gitpod.dockerfile
 
 tasks:
   - init: yarn install
