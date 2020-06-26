@@ -8,3 +8,4 @@ module.exports = {
       "migrationsDir": "./src/database/migrations/"
   }
 }
+
