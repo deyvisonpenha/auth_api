@@ -9,9 +9,6 @@ class User {
   email: string;
 
   @Column()
-  whatsapp: string;
-
-  @Column()
   password: string;
 
   @CreateDateColumn()
