@@ -1,6 +1,5 @@
 import { Router } from 'express';
-import CreateUserService from '../services/CreateUserService'
-
+import AuthenticateUserService from '../services/AuthenticateUserService';
 const userRouter = Router();
 
 userRouter.get('/', async (request, response) => {
@@ -10,13 +9,12 @@ userRouter.get('/', async (request, response) => {
 userRouter.post('/', async (request, response) => {
   try{
     const { email, password } = request.body;
-    const createUser = new CreateUserService();
 
-    const user = await createUser.execute({email, password});
+    const authenticateUserService = new AuthenticateUserService();
 
-    delete user.password;
+    const { user, token } = await authenticateUserService.execute({ email, password });
 
-    return response.json(user)
+    return response.json({ user, token })
   }catch(err){
     return response.status(400).json({error: err.message});
   }
