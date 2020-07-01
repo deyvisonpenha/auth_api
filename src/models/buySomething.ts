@@ -10,32 +10,35 @@ import {
 
 import User from '../models/User';
 
-@Entity('buySomething')
+@Entity('buysomething')
 class BuySomething {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  addressToBuy : string;
+  address_to_buy : string;
 
   @Column()
-  productDescription : string;
+  product_description : string;
 
   @Column()
   image: string;
 
-  @Column()
-  TotalValue: string[];
+  @Column({array: true})
+  total_value: string;
+
+  @Column('decimal')
+  distance: number;
+
+  @Column('decimal')
+  service_charge: number;
 
   @Column()
-  distance: string;
+  user_id: string;
 
-  @Column()
-  serviceCharge: string;
-
-  @OneToMany( type => User, user => user.id)
+  @ManyToOne( () => User)
   @JoinColumn({name: 'user_id',  referencedColumnName: "id"})
-  user_id: User;
+  user_buy_something: User;
 
   @CreateDateColumn()
   created_at: Date;
