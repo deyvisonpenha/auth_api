@@ -2,10 +2,6 @@ import { Router } from 'express';
 import AuthenticateUserService from '../services/AuthenticateUserService';
 const userRouter = Router();
 
-userRouter.get('/', async (request, response) => {
-
-});
-
 userRouter.post('/', async (request, response) => {
   try{
     const { email, password } = request.body;

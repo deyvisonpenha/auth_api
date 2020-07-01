@@ -4,11 +4,12 @@ import { hash } from 'bcryptjs';
 
 interface Request {
   email: string,
-  password: string
+  password: string,
+  whatsapp: string
 }
 
 class CreateUserService {
-  public async execute({ email, password }: Request): Promise<User>{
+  public async execute({ email, password, whatsapp }: Request): Promise<User>{
     const userRepository = getRepository(User);
 
     const checkUserExists = await userRepository.findOne({ where: {email}});
@@ -19,7 +20,7 @@ class CreateUserService {
 
     const hashedPassword = await hash(password, 8);
 
-    const user = userRepository.create({ email, password: hashedPassword});
+    const user = userRepository.create({ email, password: hashedPassword, whatsapp});
 
     await userRepository.save(user);
 

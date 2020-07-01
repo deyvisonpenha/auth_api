@@ -17,11 +17,18 @@ export default class CreateUser1593125633769 implements MigrationInterface {
           {
             name: 'email',
             type: 'varchar',
-            isUnique: true
+            isUnique: true,
+            isNullable: false
           },
           {
             name: 'password',
-            type: 'varchar'
+            type: 'varchar',
+            isNullable: false
+          },
+          {
+            name: 'whatsapp',
+            type: 'varchar',
+            isNullable: true
           },
           {
             name: 'created_at',
