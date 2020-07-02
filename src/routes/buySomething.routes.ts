@@ -1,15 +1,21 @@
 import { Router } from 'express';
 import CreateBuySomethingService from '../services/CreateBuySomethingService';
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+import BuySomethingRepository from '../repositories/buySomethingRepository';
+import {getCustomRepository} from 'typeorm';
 
 const buySomethingRouter = Router();
 
+buySomethingRouter.use(ensureAuthenticated);
+
 buySomethingRouter.get('/:user_id', async (request, response) => {
   const { user_id } = request.params;
-  const createBuySomethingService = new CreateBuySomethingService();
 
-  const buySomething = await createBuySomethingService.allBuy({user_id});
+  const buySomethingRepository = getCustomRepository(BuySomethingRepository);
 
-  return response.json(buySomething);
+  const allBuySomethingByUser = await buySomethingRepository.findAllByUser({user_id});
+
+  return response.json(allBuySomethingByUser);
 });
 
 buySomethingRouter.post('/:user_id', async (request, response) => {

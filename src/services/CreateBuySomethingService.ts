@@ -12,10 +12,6 @@ interface Request {
   user_id: string,
 }
 
-interface All{
-  user_id: string
-}
-
 class CreateBuySomethingService {
   public async execute({
     address_to_buy, product_description, image, total_value, distance, service_charge, user_id
@@ -30,14 +26,6 @@ class CreateBuySomethingService {
     await buySomethingRepository.save(buySomething);
 
     return buySomething;
-  }
-
-  public async allBuy({user_id}: All): Promise<BuySomething[]>{
-    const buySomethingRepository = getRepository(BuySomething);
-
-    const allBuySomething = await buySomethingRepository.find({ where: {user_id}});
-
-    return allBuySomething;
   }
 }
 
