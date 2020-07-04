@@ -6,7 +6,7 @@ import {
     PrimaryGeneratedColumn,
     JoinColumn,
     ManyToOne,
-    OneToMany,} from 'typeorm';
+    } from 'typeorm';
 
 import User from '../models/User';
 
