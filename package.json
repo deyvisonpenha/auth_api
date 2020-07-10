@@ -8,15 +8,18 @@
   "scripts": {
     "prod": "node --unhandled-rejections=strict dist/server.js",
     "dev": "ts-node-dev --inspect --ignore node_modules src/server.ts",
-    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
+    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
+    "start": "ts-node src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.2.1",
+    "ts-node": "^8.10.2",
     "typeorm": "^0.2.25",
     "uuidv4": "^6.1.1"
   },

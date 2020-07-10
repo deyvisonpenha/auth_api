@@ -4,6 +4,14 @@ implement a auth system
 ## Mongo DB
 require('dotenv').config()
 
+## database
+$ psql -h localhost -d postgres
+```
+# CREATE USER postgres WITH PASSWORD '123456';
+# ALTER USER postgres WITH SUPERUSER;
+# create database pedeae
+```
+
 module.exports = {
   "name": "default",
   "type": "mongodb",
