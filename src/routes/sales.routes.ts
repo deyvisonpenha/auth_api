@@ -27,7 +27,9 @@ seekSomething.post('/:user_id', async (request, response) => {
   type_delivery,
   troco,
   cashback_value,
-  products
+  products,
+  documents,
+  product_image
   } = request.body;
 
   const {user_id} = request.params;
@@ -52,7 +54,9 @@ seekSomething.post('/:user_id', async (request, response) => {
     type_delivery,
     troco,
     cashback_value,
-    products
+    products,
+    documents,
+    product_image
   });
 
   response.json({salesProduct});

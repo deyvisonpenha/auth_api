@@ -19,7 +19,9 @@ interface Request {
   type_delivery: string,
   troco: string,
   cashback_value: string,
-  products: string
+  products: string,
+  documents: string,
+  product_image: string
 }
 
 class CreateSalesService {
@@ -41,7 +43,9 @@ class CreateSalesService {
   type_delivery,
   troco,
   cashback_value,
-  products
+  products,
+  documents,
+  product_image
   }: Request): Promise<Sales>{
 
     const salesRepository = getRepository(Sales);
@@ -64,7 +68,9 @@ class CreateSalesService {
   type_delivery,
   troco,
   cashback_value,
-  products
+  products,
+  documents,
+  product_image
   });
 
   await salesRepository.save(sale);

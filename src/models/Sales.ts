@@ -67,6 +67,12 @@ class Sales {
   @Column({array: true})
   products: string;
 
+  @Column()
+  documents: string;
+
+  @Column()
+  product_image: string;
+
   @CreateDateColumn()
   created_at: Date;
 
