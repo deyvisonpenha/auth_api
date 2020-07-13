@@ -9,7 +9,7 @@ import {
 import User from '../models/User';
 
 @Entity('sales_product')
-class SeekSomething {
+class Sales {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -74,4 +74,4 @@ class SeekSomething {
   updated_at: Date
 }
 
-export default SeekSomething;
+export default Sales;
