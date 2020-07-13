@@ -4,6 +4,7 @@ import sessionsRouter from './sessions.routes';
 import buySomethingRouter from './buySomething.routes';
 import addressRouter from './address.routes';
 import seeksomething from './seekSomething.routes';
+import salesRouter from  './sales.routes';
 
 const routes = Router();
 
@@ -12,5 +13,6 @@ routes.use('/sessions', sessionsRouter);
 routes.use('/buysomething', buySomethingRouter);
 routes.use('/address', addressRouter);
 routes.use('/seeksomething', seeksomething);
+routes.use('/sales',salesRouter)
 
 export default routes;
