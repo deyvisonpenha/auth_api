@@ -36,6 +36,8 @@
     "@types/jsonwebtoken": "^8.5.0",
     "babel-plugin-module-resolver": "^4.0.0",
     "babel-plugin-transform-typescript-metadata": "^0.3.0",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^6.0.0-alpha.1",
     "ts-node-dev": "^1.0.0-pre.49",
     "typescript": "^3.9.5"
   }

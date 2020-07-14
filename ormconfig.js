@@ -6,8 +6,8 @@ module.exports = {
   "username": "postgres",
   "password": "123456",
   "database": "pedeae",
-  "entities": ["./src/models/*.{ts,js}"],
-  "migrations": ["./src/database/migrations/*.ts"],
+  "entities": ["./dist/models/*.{ts,js}"],
+  "migrations": ["./dist/database/migrations/*.{ts,js}"],
   "cli": {
       "migrationsDir": "./src/database/migrations/"
   }
