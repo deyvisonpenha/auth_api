@@ -1,7 +1,9 @@
 module.exports = {
   "name": "default",
   "type": "mongodb",
-   "url": 'mongodb+srv://deyvisonpenha:de_ison1@cluster0-faoju.mongodb.net/pedeae?retryWrites=true&w=majority',
+  "host": "localhost",
+  "port": 27017,
+  "database": "pedeae",
   "entities": ["./src/models/*.{ts,js}"],
   "migrations": ["./src/database/migrations/*.{ts,js}"],
   "cli": {
