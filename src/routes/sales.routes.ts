@@ -1,15 +1,22 @@
 import { Router } from 'express';
-import CreateSalesService from '../services/CreateSalesService';
+import SalesRepository from '../repositories/salesRepository';
+import {getCustomRepository} from 'typeorm';
 
-const seekSomething = Router();
+const salesRouter = Router();
 
 // seekSomething.use(ensureAuthenticated);
 
-seekSomething.get('/sales', async (request, response) => {
+salesRouter.get('/:user_id', async (request, response) => {
+  const {user_id} = request.params;
 
+  const salesRepository = getCustomRepository(SalesRepository);
+
+  const salesProduct = await salesRepository.allByUsers({user_id});
+
+  return response.json(salesProduct);
 });
 
-seekSomething.post('/:user_id', async (request, response) => {
+salesRouter.post('/:user_id', async (request, response) => {
   const {
   shop_id,
   total,
@@ -34,9 +41,9 @@ seekSomething.post('/:user_id', async (request, response) => {
 
   const {user_id} = request.params;
 
-  const createSalesService = new CreateSalesService();
+  const salesRepository = getCustomRepository(SalesRepository);
 
-  const salesProduct = await createSalesService.execute({
+  const salesProduct = await salesRepository.create({
     shop_id,
     user_id,
     total,
@@ -59,7 +66,7 @@ seekSomething.post('/:user_id', async (request, response) => {
     product_image
   });
 
-  response.json({salesProduct});
+  return response.json({salesProduct});
 });
 
-export default seekSomething;
+export default salesRouter;
