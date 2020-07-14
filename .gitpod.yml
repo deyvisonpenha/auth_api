@@ -3,4 +3,4 @@ image:
 
 tasks:
   - init: yarn install
-          mkdir -p /workspace/data && mongod --dbpath /workspace/data
+    command: mkdir -p /workspace/data && mongod --dbpath /workspace/data
