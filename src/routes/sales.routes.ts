@@ -1,10 +1,14 @@
 import { Router } from 'express';
 import SalesRepository from '../repositories/salesRepository';
 import {getCustomRepository} from 'typeorm';
+import multer from 'multer';
+import multerConfig from '../config/upload';
 
 const salesRouter = Router();
 
 // seekSomething.use(ensureAuthenticated);
+
+const upload = multer(multerConfig);
 
 salesRouter.get('/:user_id', async (request, response) => {
   const {user_id} = request.params;
@@ -16,7 +20,7 @@ salesRouter.get('/:user_id', async (request, response) => {
   return response.json(salesProduct);
 });
 
-salesRouter.post('/:user_id', async (request, response) => {
+salesRouter.post('/:user_id', upload.single('product_image') , async (request, response) => {
   const {
   shop_id,
   total,
@@ -35,11 +39,12 @@ salesRouter.post('/:user_id', async (request, response) => {
   troco,
   cashback_value,
   products,
-  documents,
-  product_image
+  documents
   } = request.body;
 
   const {user_id} = request.params;
+
+  const product_image = request.file.path;
 
   const salesRepository = getCustomRepository(SalesRepository);
 
