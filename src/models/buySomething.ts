@@ -4,6 +4,8 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     PrimaryGeneratedColumn,
+    ObjectIdColumn,
+    ObjectID,
     JoinColumn,
     ManyToOne,
     } from 'typeorm';
@@ -12,8 +14,8 @@ import User from '../models/User';
 
 @Entity('buysomething')
 class BuySomething {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @ObjectIdColumn()
+  id: ObjectID;
 
   @Column()
   address_to_buy : string;

@@ -19,7 +19,7 @@ interface Request {
   type_delivery: string,
   troco: string,
   cashback_value: string,
-  products: string,
+  products: Array<object>,
   documents: string,
   product_image: string
 }

@@ -1,4 +1,4 @@
-import {Repository, getRepository, EntityRepository, DeleteResult} from 'typeorm';
+import {Repository, getRepository, EntityRepository, DeleteResult, getMongoRepository, MongoRepository} from 'typeorm';
 import DeliveryAddress from '../models/DeliveryAddress';
 
 interface FullRequest{
@@ -17,10 +17,10 @@ interface DeleteRequest{
 
 @EntityRepository(DeliveryAddress)
 class deliveryAddressRepository {
-  private ormRepository: Repository<DeliveryAddress>
+  private ormRepository: MongoRepository<DeliveryAddress>
 
   constructor(){
-    this.ormRepository = getRepository(DeliveryAddress);
+    this.ormRepository = getMongoRepository(DeliveryAddress);
   }
 
   public async allByUsers({user_id}: Request): Promise<DeliveryAddress[]>{

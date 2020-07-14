@@ -1,4 +1,4 @@
-import { getRepository } from 'typeorm';
+import { getRepository, getMongoRepository} from 'typeorm';
 import User from '../models/User';
 import { hash } from 'bcryptjs';
 
@@ -10,7 +10,7 @@ interface Request {
 
 class CreateUserService {
   public async execute({ email, password, whatsapp }: Request): Promise<User>{
-    const userRepository = getRepository(User);
+    const userRepository = getMongoRepository(User);
 
     const checkUserExists = await userRepository.findOne({ where: {email}});
 

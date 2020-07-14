@@ -3,15 +3,17 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  ObjectIdColumn,
+  ObjectID
 } from 'typeorm';
 
 import User from '../models/User';
 
 @Entity('sales_product')
 class Sales {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
+  @ObjectIdColumn()
+  id: ObjectID
 
   @Column('decimal')
   shop_id: number;
@@ -64,8 +66,8 @@ class Sales {
   @Column()
   cashback_value: string;
 
-  @Column({array: true})
-  products: string;
+  @Column()
+  products: Array<object>;
 
   @Column()
   documents: string;

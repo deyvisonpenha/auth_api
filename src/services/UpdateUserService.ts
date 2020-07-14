@@ -1,4 +1,4 @@
-import { getRepository, getConnection} from 'typeorm';
+import { getRepository, getConnection, getMongoRepository} from 'typeorm';
 import User from '../models/User';
 import { hash } from 'bcryptjs';
 
@@ -22,7 +22,7 @@ class UpdateUserService {
 
       console.log(response);
 
-      const userRepository = getRepository(User);
+      const userRepository = getMongoRepository(User);
 
       const user = await userRepository.findOne({where: {id}});
 

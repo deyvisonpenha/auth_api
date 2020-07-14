@@ -1,4 +1,4 @@
-import { getRepository } from 'typeorm';
+import { getRepository, getMongoRepository} from 'typeorm';
 import BuySomething from '../models/buySomething';
 import User from '../models/User';
 
@@ -17,7 +17,7 @@ class CreateBuySomethingService {
     address_to_buy, product_description, image, total_value, distance, service_charge, user_id
   }: Request): Promise<BuySomething>{
 
-    const buySomethingRepository = getRepository(BuySomething);
+    const buySomethingRepository = getMongoRepository(BuySomething);
 
     const buySomething = buySomethingRepository.create({
       address_to_buy, product_description, image, total_value, distance, service_charge, user_id

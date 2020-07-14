@@ -5,18 +5,20 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  JoinColumn
+  JoinColumn,
+  ObjectIdColumn,
+  ObjectID
 } from 'typeorm';
 
 import User from '../models/User';
 
 @Entity('seek_something')
 class SeekSomething {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
+  @ObjectIdColumn()
+  id: ObjectID
 
   @Column()
-  address: string;
+  address: Array<object>;
 
   @Column()
   description: string;

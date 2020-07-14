@@ -1,4 +1,4 @@
-import {Repository, getRepository, EntityRepository} from 'typeorm';
+import {Repository, getRepository, EntityRepository, getMongoRepository, MongoRepository} from 'typeorm';
 import BuySomething from '../models/buySomething';
 
 
@@ -8,10 +8,10 @@ interface Request{
 
 @EntityRepository(BuySomething)
 class buySomethingRepository {
-  private ormRepository: Repository<BuySomething>
+  private ormRepository: MongoRepository<BuySomething>
 
   constructor(){
-    this.ormRepository = getRepository(BuySomething);
+    this.ormRepository = getMongoRepository(BuySomething);
   }
 
   public async findAllByUser({user_id}: Request): Promise<BuySomething[]>{

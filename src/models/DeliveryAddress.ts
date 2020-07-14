@@ -5,15 +5,17 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  JoinColumn
+  JoinColumn,
+  ObjectIdColumn,
+  ObjectID
 } from 'typeorm';
 
 import User from '../models/User';
 
 @Entity('delivery_address')
 class DeliveryAddress {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
+  @ObjectIdColumn()
+  id: ObjectID
 
   @Column()
   address: string

@@ -1,4 +1,4 @@
-import {Repository, getRepository, EntityRepository, DeleteResult} from 'typeorm';
+import {Repository, getRepository, EntityRepository, DeleteResult, getMongoRepository, MongoRepository} from 'typeorm';
 import Sales from '../models/Sales';
 
 interface Request {
@@ -19,7 +19,7 @@ interface Request {
   type_delivery: string,
   troco: string,
   cashback_value: string,
-  products: string,
+  products: Array<object>,
   documents: string,
   product_image: string
 }
@@ -27,10 +27,10 @@ interface Request {
 
 @EntityRepository(Sales)
 class salesRepository {
-  private ormRepository: Repository<Sales>
+  private ormRepository: MongoRepository<Sales>
 
   constructor(){
-    this.ormRepository = getRepository(Sales);
+    this.ormRepository = getMongoRepository(Sales);
   }
 
   public async allByUsers({user_id}): Promise<Sales[]>{

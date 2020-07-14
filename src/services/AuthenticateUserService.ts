@@ -1,4 +1,4 @@
-import { getRepository } from 'typeorm';
+import { getRepository, getMongoRepository, MongoRepository} from 'typeorm';
 import User from '../models/User';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken'
@@ -16,7 +16,7 @@ interface Response {
 
 class AuthenticateUserService {
   public async execute({ email, password }: Request): Promise<Response>{
-    const userRepository = getRepository(User);
+    const userRepository = getMongoRepository(User);
 
     const user = await userRepository.findOne({ where: {email}});
 
@@ -33,7 +33,7 @@ class AuthenticateUserService {
   const { secret, expiresIn } = authConfig.jwt;
 
   const token = sign({}, secret, {
-    subject: user.id,
+    subject: user.id.toString(),
     expiresIn,
   })
 
