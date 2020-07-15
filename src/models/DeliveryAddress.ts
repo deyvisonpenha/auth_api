@@ -18,16 +18,28 @@ class DeliveryAddress {
   id: ObjectID
 
   @Column()
+  cep: string
+
+  @Column()
   address: string
 
   @Column()
-  description: string
+  number: string
+
+  @Column()
+  optionalDescription: string
+
+  @Column()
+  typeOfAddress: string
+
+  @Column()
+  descriptionTypeAddress: string
 
   @Column()
   user_id: string;
 
-  @ManyToOne( () => User)
-  @JoinColumn({name: 'user_id',  referencedColumnName: "id"})
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id', referencedColumnName: "id" })
   user_delivery_address: User;
 
   @CreateDateColumn()
