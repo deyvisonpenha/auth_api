@@ -73,7 +73,7 @@ class Sales {
   documents: string;
 
   @Column()
-  product_image: string;
+  shop_name: string
 
   @CreateDateColumn()
   created_at: Date;

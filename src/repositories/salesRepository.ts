@@ -1,4 +1,4 @@
-import {Repository, getRepository, EntityRepository, DeleteResult, getMongoRepository, MongoRepository} from 'typeorm';
+import { Repository, getRepository, EntityRepository, DeleteResult, getMongoRepository, MongoRepository } from 'typeorm';
 import Sales from '../models/Sales';
 
 interface Request {
@@ -21,7 +21,7 @@ interface Request {
   cashback_value: string,
   products: Array<object>,
   documents: string,
-  product_image: string
+  shop_name
 }
 
 
@@ -29,37 +29,37 @@ interface Request {
 class salesRepository {
   private ormRepository: MongoRepository<Sales>
 
-  constructor(){
+  constructor() {
     this.ormRepository = getMongoRepository(Sales);
   }
 
-  public async allByUsers({user_id}): Promise<Sales[]>{
-    const allSales = this.ormRepository.find({where: {user_id}});
+  public async allByUsers({ user_id }): Promise<Sales[]> {
+    const allSales = this.ormRepository.find({ where: { user_id } });
     return allSales;
   }
 
   public async create({
-  shop_id,
-  user_id,
-  total,
-  shop_amount,
-  deliver_fee,
-  paid,
-  cancelled,
-  deliveried,
-  status,
-  observations,
-  address_id,
-  payment_type_id,
-  finished,
-  delivery_tax,
-  type_delivery,
-  troco,
-  cashback_value,
-  products,
-  documents,
-  product_image
-  }: Request): Promise<Sales>{
+    shop_id,
+    user_id,
+    total,
+    shop_amount,
+    deliver_fee,
+    paid,
+    cancelled,
+    deliveried,
+    status,
+    observations,
+    address_id,
+    payment_type_id,
+    finished,
+    delivery_tax,
+    type_delivery,
+    troco,
+    cashback_value,
+    products,
+    documents,
+    shop_name
+  }: Request): Promise<Sales> {
 
     const sale = this.ormRepository.create({
       shop_id,
@@ -81,12 +81,12 @@ class salesRepository {
       cashback_value,
       products,
       documents,
-      product_image
+      shop_name
     });
 
-    try{
+    try {
       await this.ormRepository.save(sale);
-    }catch{
+    } catch{
       throw new Error('cant create sales')
     }
     return sale;
