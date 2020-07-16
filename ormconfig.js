@@ -6,8 +6,8 @@ module.exports = {
   "useUnifiedTopology": true,
   "port": 27017,
   "database": "pedeae",
-  "entities": ["./dist/models/*.{ts,js}"],
-  "migrations": ["./dist/database/migrations/*.{ts,js}"],
+  "entities": ["./src/models/*.{ts,js}"],
+  "migrations": ["./src/database/migrations/*.{ts,js}"],
   "cli": {
     "migrationsDir": "./src/database/migrations/"
   }

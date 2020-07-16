@@ -45,6 +45,9 @@ class Sales {
   @Column()
   observations: string;
 
+  @Column()
+  cupom_id: string
+
   @Column('decimal')
   address_id: number;
 

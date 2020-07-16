@@ -1,4 +1,4 @@
-import { Repository, getRepository, EntityRepository, DeleteResult, getMongoRepository, MongoRepository } from 'typeorm';
+import { EntityRepository, getMongoRepository, MongoRepository, DeleteWriteOpResultObject, ObjectID, DeleteResult } from 'typeorm';
 import DeliveryAddress from '../models/DeliveryAddress';
 
 interface FullRequest {
@@ -61,9 +61,9 @@ class deliveryAddressRepository {
     return deliveryAddress;
   }
 
-  public async delete({ address_id }: DeleteRequest): Promise<DeleteResult> {
-    const response = this.ormRepository.delete(address_id);
-
+  public async delete({ address_id}: DeleteRequest): Promise<DeleteResult> {
+    const response = await this.ormRepository.delete({id: address_id});
+    console.log(response);
     return response;
   }
 }

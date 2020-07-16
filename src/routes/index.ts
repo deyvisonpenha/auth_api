@@ -5,6 +5,7 @@ import buySomethingRouter from './buySomething.routes';
 import addressRouter from './address.routes';
 import seeksomething from './seekSomething.routes';
 import salesRouter from  './sales.routes';
+import subcategoryRouter from './subCategory.routes';
 
 const routes = Router();
 
@@ -13,6 +14,7 @@ routes.use('/sessions', sessionsRouter);
 routes.use('/buysomething', buySomethingRouter);
 routes.use('/address', addressRouter);
 routes.use('/seeksomething', seeksomething);
-routes.use('/sales',salesRouter)
+routes.use('/sales',salesRouter);
+routes.use('/subcategory', subcategoryRouter);
 
 export default routes;

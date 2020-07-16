@@ -40,7 +40,8 @@ salesRouter.post('/:user_id', async (request, response) => {
     cashback_value,
     products,
     documents,
-    shop_name
+    shop_name,
+    cupom_id
   } = request.body;
 
   const { user_id } = request.params;
@@ -69,7 +70,8 @@ salesRouter.post('/:user_id', async (request, response) => {
     cashback_value,
     products,
     documents,
-    shop_name
+    shop_name,
+    cupom_id
   });
 
   return response.json({ salesProduct });

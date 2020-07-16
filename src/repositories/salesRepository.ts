@@ -21,6 +21,7 @@ interface Request {
   cashback_value: string,
   products: Array<object>,
   documents: string,
+  cupom_id: string,
   shop_name
 }
 
@@ -58,6 +59,7 @@ class salesRepository {
     cashback_value,
     products,
     documents,
+    cupom_id,
     shop_name
   }: Request): Promise<Sales> {
 
@@ -81,7 +83,8 @@ class salesRepository {
       cashback_value,
       products,
       documents,
-      shop_name
+      shop_name,
+      cupom_id
     });
 
     try {
