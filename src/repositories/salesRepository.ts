@@ -35,8 +35,15 @@ class salesRepository {
   }
 
   public async allByUsers({ user_id }): Promise<Sales[]> {
-    const allSales = this.ormRepository.find({ where: { user_id } });
+    const allSales = await this.ormRepository.find({ where: { user_id } });
+
     return allSales;
+  }
+
+  public async findByShop({shop_id}): Promise<Sales[]>{
+    shop_id = Number(shop_id);
+    const sales = await this.ormRepository.find({where: {shop_id} });
+    return sales;
   }
 
   public async create({
