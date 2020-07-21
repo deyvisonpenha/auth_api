@@ -1,6 +1,6 @@
-import { Router } from 'express';
+import { Router, request, response } from 'express';
 import SalesRepository from '../repositories/salesRepository';
-import { getCustomRepository } from 'typeorm';
+import { getCustomRepository, ObjectID } from 'typeorm';
 import multer from 'multer';
 import multerConfig from '../config/upload';
 
@@ -85,6 +85,17 @@ salesRouter.post('/:user_id', async (request, response) => {
   });
 
   return response.json({ salesProduct });
+});
+
+salesRouter.patch('/:sales_id/status', async (request, response) => {
+  const {sales_id: id} = request.params;
+  const {status} = request.body;
+
+  const salesRepository = getCustomRepository(SalesRepository);
+
+  const updatedSalesStatus = await salesRepository.updateStateOfSales({id,status})
+
+  return response.json(updatedSalesStatus);
 });
 
 export default salesRouter;

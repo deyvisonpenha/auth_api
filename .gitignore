@@ -9,3 +9,4 @@ tmp/*
 !tmp/.gitkeep
 
 yarn.lock
+yarn-error.log

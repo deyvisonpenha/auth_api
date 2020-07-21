@@ -1,4 +1,16 @@
-import { Repository, getRepository, EntityRepository, DeleteResult, getMongoRepository, MongoRepository } from 'typeorm';
+import {
+  Repository,
+  getRepository,
+  EntityRepository,
+  DeleteResult,
+  getMongoRepository,
+  MongoRepository
+} from 'typeorm';
+
+import mongojs from  'mongojs';
+var ObjectId = mongojs.ObjectId;
+
+
 import Sales from '../models/Sales';
 
 interface Request {
@@ -24,7 +36,6 @@ interface Request {
   cupom_id: string,
   shop_name
 }
-
 
 @EntityRepository(Sales)
 class salesRepository {
@@ -100,6 +111,16 @@ class salesRepository {
       throw new Error('cant create sales')
     }
     return sale;
+  }
+
+  public async updateStateOfSales({id, status}){
+    const response = await this.ormRepository.findOneAndUpdate(
+      {_id: ObjectId(id)},
+      { $set: {status}},
+      {returnOriginal: false },
+    );
+
+    return response.value;
   }
 
 }
