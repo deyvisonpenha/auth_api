@@ -5,7 +5,7 @@ import {
   UpdateDateColumn,
   PrimaryGeneratedColumn,
   ObjectIdColumn,
-  ObjectID
+  ObjectID,
 } from 'typeorm';
 
 @Entity('users')
@@ -18,6 +18,12 @@ class User {
 
   @Column()
   whatsapp: string;
+
+  @Column()
+  name: string;
+
+  @Column({ nullable: true })
+  age?:Date;
 
   @Column()
   password: string;

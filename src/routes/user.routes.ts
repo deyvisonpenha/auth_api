@@ -29,10 +29,10 @@ userRouter.put('/:id', ensureAuthenticated, async (request, response) => {
 
 userRouter.post('/', async (request, response) => {
   try{
-    const { email, password, whatsapp } = request.body;
+    const { email, password, whatsapp, name, age } = request.body;
     const createUser = new CreateUserService();
 
-    const user = await createUser.execute({email, password, whatsapp});
+    const user = await createUser.execute({email, password, whatsapp,  name, age});
 
     delete user.password;
 
