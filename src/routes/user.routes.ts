@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import CreateUserService from '../services/CreateUserService';
 import UpdateUserService from '../services/UpdateUserService';
+import ChangePasswordService from "../services/ChangePasswordService";
 
 // teste inicio
 import {getRepository} from 'typeorm';
@@ -9,13 +10,13 @@ import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 // teste fim
 const userRouter = Router();
 
-userRouter.get('/', ensureAuthenticated, async (request, response) => {
+userRouter.get('/',  async (request, response) => {
   const userRepository = getRepository(User);
   const users = await userRepository.find();
   return response.json(users);
 });
 
-userRouter.put('/:id', ensureAuthenticated, async (request, response) => {
+userRouter.put('/:id',  async (request, response) => {
   const { id } = request.params;
   //const {email, password, whatsapp} = request.body;
   const userParamsUpdate = request.body;
@@ -23,6 +24,17 @@ userRouter.put('/:id', ensureAuthenticated, async (request, response) => {
   const updateUser = new UpdateUserService();
 
   const user = await updateUser.execute({ id, userParamsUpdate});
+
+  return response.json(user);
+});
+
+userRouter.put('/:id/newpassword', async (request, response) => {
+  const { id } = request.params;
+  const { newpassword } = request.body;
+
+  const changePassword = new ChangePasswordService();
+
+  const user = await changePassword.execute({ id, newpassword});
 
   return response.json(user);
 });
