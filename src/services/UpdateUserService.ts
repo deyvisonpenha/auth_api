@@ -2,17 +2,6 @@ import { getRepository, getConnection, getMongoRepository, MongoRepository} from
 import User from '../models/User';
 import { hash } from 'bcryptjs';
 
-import mongojs from  'mongojs';
-var ObjectId = mongojs.ObjectId;
-
-interface Request {
- id: string,
- userParamsUpdate: {
-   email: string,
-   whatsapp: string
-  }
-}
-
 class UpdateUserService {
   private ormRepository: MongoRepository<User>
 
@@ -20,7 +9,7 @@ class UpdateUserService {
     this.ormRepository = getMongoRepository(User);
   }
 
-  public async execute({id, userParamsUpdate}: Request): Promise< User | undefined >{
+  public async execute(id, userParamsUpdate): Promise< User | undefined >{
     try{
       /*
       const response = await getConnection()
@@ -36,9 +25,10 @@ class UpdateUserService {
 
       const user = await userRepository.findOne({where: {id}});
       */
+     var ObjectID = require('mongodb').ObjectID;
      const response = await this.ormRepository.findOneAndUpdate(
-      {_id: ObjectId(id)},
-      { $set: {userParamsUpdate}},
+      {_id: ObjectID(id)},
+      { $set: userParamsUpdate},
       {returnOriginal: false },
     );
     const updatedUser = response.value;

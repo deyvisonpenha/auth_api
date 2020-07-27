@@ -23,7 +23,7 @@ userRouter.put('/:id',  async (request, response) => {
 
   const updateUser = new UpdateUserService();
 
-  const user = await updateUser.execute({ id, userParamsUpdate});
+  const user = await updateUser.execute(id, userParamsUpdate);
 
   return response.json(user);
 });
