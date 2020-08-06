@@ -10,6 +10,14 @@ const salesRouter = Router();
 
 const upload = multer(multerConfig);
 
+salesRouter.get('/', async (request, response) => {
+  const salesRepository = getCustomRepository(SalesRepository);
+
+  const allSales = await salesRepository.allSales();
+
+  return response.json(allSales);
+});
+
 salesRouter.get('/:user_id', async (request, response) => {
   const { user_id } = request.params;
 

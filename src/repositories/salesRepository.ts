@@ -45,6 +45,12 @@ class salesRepository {
     this.ormRepository = getMongoRepository(Sales);
   }
 
+  public async allSales(): Promise<Sales[]> {
+    const allSales = await this.ormRepository.find({ order: {created_at: -1} });
+
+    return allSales;
+  }
+
   public async allByUsers({ user_id }): Promise<Sales[]> {
     const allSales = await this.ormRepository.find({ where: { user_id } });
 
