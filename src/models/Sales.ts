@@ -33,12 +33,16 @@ class Sales {
   @Column('decimal')
   paid: number;
 
+  @Column()
+  paid_type: string
+
+  /*
   @Column('decimal')
   cancelled: number;
-
+  
   @Column('decimal')
   deliveried: number;
-
+  */
   @Column()
   status: string;
 
@@ -54,8 +58,8 @@ class Sales {
   @Column('decimal')
   payment_type_id: number;
 
-  @Column('decimal')
-  finished: number;
+  // @Column('decimal')
+  // finished: number;
 
   @Column()
   delivery_tax: string;

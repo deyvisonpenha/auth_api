@@ -10,6 +10,14 @@ const salesRouter = Router();
 
 const upload = multer(multerConfig);
 
+salesRouter.get('/', async (request, response) => {
+  const salesRepository = getCustomRepository(SalesRepository);
+
+  const allSales = await salesRepository.allSales();
+
+  return response.json(allSales);
+});
+
 salesRouter.get('/:user_id', async (request, response) => {
   const { user_id } = request.params;
 
@@ -37,13 +45,14 @@ salesRouter.post('/:user_id', async (request, response) => {
     shop_amount,
     deliver_fee,
     paid,
-    cancelled,
-    deliveried,
+    paid_type,
+    //cancelled,
+    //deliveried,
     status,
     observations,
     address_id,
     payment_type_id,
-    finished,
+    //finished,
     delivery_tax,
     type_delivery,
     troco,
@@ -67,13 +76,14 @@ salesRouter.post('/:user_id', async (request, response) => {
     shop_amount,
     deliver_fee,
     paid,
-    cancelled,
-    deliveried,
+    paid_type,
+    //cancelled,
+    //deliveried,
     status,
     observations,
     address_id,
     payment_type_id,
-    finished,
+    //finished,
     delivery_tax,
     type_delivery,
     troco,
@@ -88,14 +98,15 @@ salesRouter.post('/:user_id', async (request, response) => {
 });
 
 salesRouter.patch('/:sales_id/status', async (request, response) => {
-  const {sales_id: id} = request.params;
-  const {status} = request.body;
+  const { sales_id: id } = request.params;
+  const { status } = request.body;
 
   const salesRepository = getCustomRepository(SalesRepository);
 
-  const updatedSalesStatus = await salesRepository.updateStateOfSales({id,status})
+  const updatedSalesStatus = await salesRepository.updateStateOfSales({ id, status })
 
   return response.json(updatedSalesStatus);
 });
 
 export default salesRouter;
+//47A628B34A4878A6C84932DF03F18EEDF09902C828E95244C7

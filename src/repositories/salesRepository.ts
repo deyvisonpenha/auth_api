@@ -7,7 +7,7 @@ import {
   MongoRepository
 } from 'typeorm';
 
-import mongojs from  'mongojs';
+import mongojs from 'mongojs';
 var ObjectId = mongojs.ObjectId;
 
 
@@ -20,13 +20,14 @@ interface Request {
   shop_amount: string,
   deliver_fee: string,
   paid: number,
-  cancelled: number,
-  deliveried: number,
+  paid_type: string,
+  // cancelled: number,
+  // deliveried: number,
   status: string,
   observations: string,
   address_id: number,
   payment_type_id: number,
-  finished: number,
+  // finished: number,
   delivery_tax: string,
   type_delivery: string,
   troco: string,
@@ -45,15 +46,21 @@ class salesRepository {
     this.ormRepository = getMongoRepository(Sales);
   }
 
+  public async allSales(): Promise<Sales[]> {
+    const allSales = await this.ormRepository.find({ order: { created_at: -1 } });
+
+    return allSales;
+  }
+
   public async allByUsers({ user_id }): Promise<Sales[]> {
     const allSales = await this.ormRepository.find({ where: { user_id } });
 
     return allSales;
   }
 
-  public async findByShop({shop_id}): Promise<Sales[]>{
+  public async findByShop({ shop_id }): Promise<Sales[]> {
     shop_id = Number(shop_id);
-    const sales = await this.ormRepository.find({where: {shop_id} });
+    const sales = await this.ormRepository.find({ where: { shop_id } });
     return sales;
   }
 
@@ -64,13 +71,14 @@ class salesRepository {
     shop_amount,
     deliver_fee,
     paid,
-    cancelled,
-    deliveried,
+    paid_type,
+    // cancelled,
+    // deliveried,
     status,
     observations,
     address_id,
     payment_type_id,
-    finished,
+    // finished,
     delivery_tax,
     type_delivery,
     troco,
@@ -88,13 +96,14 @@ class salesRepository {
       shop_amount,
       deliver_fee,
       paid,
-      cancelled,
-      deliveried,
+      paid_type,
+      // cancelled,
+      // deliveried,
       status,
       observations,
       address_id,
       payment_type_id,
-      finished,
+      // finished,
       delivery_tax,
       type_delivery,
       troco,
@@ -113,11 +122,11 @@ class salesRepository {
     return sale;
   }
 
-  public async updateStateOfSales({id, status}){
+  public async updateStateOfSales({ id, status }) {
     const response = await this.ormRepository.findOneAndUpdate(
-      {_id: ObjectId(id)},
-      { $set: {status}},
-      {returnOriginal: false },
+      { _id: ObjectId(id) },
+      { $set: { status } },
+      { returnOriginal: false },
     );
 
     return response.value;
