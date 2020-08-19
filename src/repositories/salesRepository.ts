@@ -47,11 +47,7 @@ class salesRepository {
   }
 
   public async allSales(): Promise<Sales[]> {
-<<<<<<< HEAD
     const allSales = await this.ormRepository.find({ order: { created_at: -1 } });
-=======
-    const allSales = await this.ormRepository.find({ order: {created_at: -1} });
->>>>>>> 5bb419d6e532627256298025b925db4a47a3c6e4
 
     return allSales;
   }
