@@ -1,10 +1,9 @@
 import {
-  Repository,
-  getRepository,
   EntityRepository,
-  DeleteResult,
   getMongoRepository,
-  MongoRepository
+  MongoRepository,
+  Between,
+  MoreThanOrEqual
 } from 'typeorm';
 
 import mongojs from 'mongojs';
@@ -44,6 +43,19 @@ class salesRepository {
 
   constructor() {
     this.ormRepository = getMongoRepository(Sales);
+  }
+
+  public async filterByStatus( status: string ) {
+    const salesByStatus = await this.ormRepository.find({ where: {status}});
+    return salesByStatus;
+  }
+
+  public async filterByDate(initDate: Date, endDate: Date){
+    const sales = await this.ormRepository.find(
+        { where: {shop_id: MoreThanOrEqual(2)}}
+        );
+    //console.log(sales);
+    return sales;
   }
 
   public async allSales(): Promise<Sales[]> {

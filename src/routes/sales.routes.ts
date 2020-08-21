@@ -28,6 +28,25 @@ salesRouter.get('/:user_id', async (request, response) => {
   return response.json(salesProduct);
 });
 
+salesRouter.post('/filterbystatus', async (request, response) => {
+  const { status } = request.body;
+  const salesRepository = getCustomRepository(SalesRepository);
+
+  const filterSalesByStatus = await salesRepository.filterByStatus(status);
+
+  return response.json(filterSalesByStatus);
+
+})
+
+salesRouter.post('/filterbydate', async(request, response) => {
+  const { initDate, endDate } = request.body;
+  const salesRepository = getCustomRepository(SalesRepository);
+
+  const filterSalesByDate = await salesRepository.filterByDate(initDate, endDate);
+
+  return response.json(filterSalesByDate);
+})
+
 salesRouter.get('/shop/:shop_id', async (request, response) => {
   const { shop_id } = request.params;
 
