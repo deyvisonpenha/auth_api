@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = [{
   "name": "default",
   "type": "mongodb",
   "host": "localhost",
@@ -11,4 +11,17 @@ module.exports = {
   "cli": {
     "migrationsDir": "./src/database/migrations/"
   }
+},
+{
+  "name": "postgres",
+  "type": "postgres",
+  "url": "postgres://gitpod@127.0.0.1",
+  "database": "pedeae_new_api",
+  "port": 5432,
+  "entities": ["./src/models/*.{ts,js}"],
+  "migrations": ["./src/database/migrations/*.{ts,js}"],
+  "cli": {
+    "migrationsDir": "./src/database/migrations/"
+  }
 }
+]
