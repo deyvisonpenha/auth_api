@@ -43,14 +43,8 @@ export default class CreateSales1594256067396 implements MigrationInterface {
               precision: 10,
             },
             {
-              name: 'cancelled',
-              type: 'decimal',
-              precision: 10,
-            },
-            {
-              name: 'deliveried',
-              type: 'decimal',
-              precision: 10,
+              name: 'paid_type',
+              type: 'varchar'
             },
             {
               name: 'status',
@@ -61,17 +55,16 @@ export default class CreateSales1594256067396 implements MigrationInterface {
               type: 'varchar',
             },
             {
+              name: 'cupom_id',
+              type: 'varchar',
+            },
+            {
               name: 'address_id',
               type: 'decimal',
               precision: 10,
             },
             {
               name: 'payment_type_id',
-              type: 'decimal',
-              precision: 10,
-            },
-            {
-              name: 'finished',
               type: 'decimal',
               precision: 10,
             },
@@ -94,6 +87,14 @@ export default class CreateSales1594256067396 implements MigrationInterface {
             {
               name: 'products',
               type: 'varchar[]',
+            },
+            {
+              name: 'documents',
+              type: 'varchar',
+            },
+            {
+              name: 'shop_name',
+              type: 'varchar',
             },
             {
             name: 'created_at',

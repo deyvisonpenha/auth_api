@@ -21,6 +21,12 @@ export default class CreateUser1593125633769 implements MigrationInterface {
             isNullable: false
           },
           {
+            name: 'name',
+            type: 'varchar',
+            isUnique: true,
+            isNullable: false
+          },
+          {
             name: 'password',
             type: 'varchar',
             isNullable: false
@@ -34,6 +40,10 @@ export default class CreateUser1593125633769 implements MigrationInterface {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()'
+          },
+          {
+            name: 'age',
+            type: 'timestamp'
           },
           {
             name: 'updated_at',

@@ -15,11 +15,27 @@ export default class CreateDeliveryAddress1593735902559 implements MigrationInte
               default: 'uuid_generate_v4()'
             },
             {
+              name: 'cep',
+              type: 'varchar'
+            },
+            {
               name: 'address',
               type: 'varchar'
             },
             {
-              name: 'description',
+              name: 'number',
+              type: 'varchar'
+            },
+            {
+              name: 'optionalDescription',
+              type: 'varchar'
+            },
+            {
+              name: 'typeOfAddress',
+              type: 'varchar'
+            },
+            {
+              name: 'descriptionTypeAddress',
               type: 'varchar'
             },
             {
