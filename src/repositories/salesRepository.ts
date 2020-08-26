@@ -2,7 +2,7 @@ import {
   EntityRepository,
   getMongoRepository,
   MongoRepository,
-  Between,
+  Raw,
   MoreThanOrEqual
 } from 'typeorm';
 
@@ -51,10 +51,28 @@ class salesRepository {
   }
 
   public async filterByDate(initDate: Date, endDate: Date){
+    const convertInitDate = new Date(initDate);
+    var convertEndDate = new Date(endDate);
+    convertEndDate.setHours(23, 59, 59);
+/*
     const sales = await this.ormRepository.find(
-        { where: {shop_id: MoreThanOrEqual(2)}}
+        { where: {
+            created_at: {$gte: convertInitDate}
+           }}
         );
-    //console.log(sales);
+*/
+
+    const sales = await this.ormRepository.find({
+        where: {
+                $and:[
+                    { created_at : { $gte : convertInitDate } },
+                    { created_at : { $lte: convertEndDate } }
+                ]
+            },
+        order: { created_at: -1 }
+        });
+
+    console.log(convertEndDate);
     return sales;
   }
 
