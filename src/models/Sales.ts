@@ -21,8 +21,8 @@ class Sales {
   @Column()
   user_id: string;
 
-  @Column()
-  total: string;
+  @Column('decimal')
+  total: number;
 
   @Column()
   shop_amount: string;
@@ -39,7 +39,7 @@ class Sales {
   /*
   @Column('decimal')
   cancelled: number;
-  
+
   @Column('decimal')
   deliveried: number;
   */

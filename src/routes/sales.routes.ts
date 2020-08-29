@@ -3,6 +3,7 @@ import SalesRepository from '../repositories/salesRepository';
 import { getCustomRepository, ObjectID } from 'typeorm';
 import multer from 'multer';
 import multerConfig from '../config/upload';
+import { Writable } from 'typeorm/platform/PlatformTools';
 
 const salesRouter = Router();
 
@@ -16,6 +17,12 @@ salesRouter.get('/', async (request, response) => {
   const allSales = await salesRepository.allSales();
 
   return response.json(allSales);
+});
+
+salesRouter.get('/financial', async (request, response)=> {
+  const salesRepository = getCustomRepository(SalesRepository);
+  const salesWeek = await salesRepository.dashboardAdmin()
+  return response.json(salesWeek);
 });
 
 salesRouter.get('/:user_id', async (request, response) => {

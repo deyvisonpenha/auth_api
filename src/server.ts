@@ -11,5 +11,6 @@ app.use(cors())
 app.use(express.json());
 
 app.use(routes);
+console.log("starting server")
 
 app.listen(3333);

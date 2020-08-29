@@ -34,3 +34,6 @@ module.exports = {
       "migrationsDir": "./src/database/migrations/"
   }
 }
+
+## Working with timezones
+yarn add moment-timezone
