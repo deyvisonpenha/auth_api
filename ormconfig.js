@@ -5,8 +5,8 @@ module.exports = {
   "type": "mongodb",
   "url": `${process.env.MongoUrl}`,
   "useUnifiedTopology": true,
-  "entities": ["./src/models/*.{ts,js}"],
-  "migrations": ["./src/database/migrations/*.{ts,js}"],
+  "entities": ["./dist/models/*.{ts,js}"],
+  "migrations": ["./dist/database/migrations/*.{ts,js}"],
   "cli": {
     "migrationsDir": "./src/database/migrations/"
   }
