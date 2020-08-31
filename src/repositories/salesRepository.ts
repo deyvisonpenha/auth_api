@@ -123,7 +123,7 @@ class salesRepository {
     //return totalSalesMoney;
   }
 
-  public async dashboardShop() {
+  public async dashboardShop(shop_id: string) {
     const today = new Date();
     const lastDay = today.getDay();
     const currentMonth = today.getMonth();
@@ -136,7 +136,17 @@ class salesRepository {
     beginingOfMonth.setMonth(currentMonth, 1)
     beginingOfMonth.setHours(0, 0, 0);
 
-    const salesOnWeek = await findByRangeDate(beginigOfWeek, today, this.ormRepository);
+    //const salesOnWeek = await (await findByRangeDate(beginigOfWeek, today, this.ormRepository));
+    const salesOnWeek = await this.ormRepository.find({
+        where: {
+                $and:[
+                    { created_at : { $gte : beginigOfWeek } },
+                    { created_at : { $lte: today } },
+                    { shop_id: Number(shop_id) }
+                ]
+            },
+        order: { created_at: -1 }
+        });
 
   // fazer uma função para o reduce
     const totalSalesMoneyOnWeek = salesOnWeek.reduce(
@@ -149,7 +159,17 @@ class salesRepository {
       total: 0
     });
 
-    const salesOnMonth = await findByRangeDate(beginingOfMonth, today, this.ormRepository);
+    //const salesOnMonth = await findByRangeDate(beginingOfMonth, today, this.ormRepository);
+    const salesOnMonth = await this.ormRepository.find({
+        where: {
+                $and:[
+                    { created_at : { $gte : beginingOfMonth } },
+                    { created_at : { $lte: today } },
+                    { shop_id: Number(shop_id) }
+                ]
+            },
+        order: { created_at: -1 }
+        });
 
     const totalSalesMoneyOnMonth = salesOnMonth.reduce(
         (accumulator: Balance, salesObject: Sales) => {
@@ -161,9 +181,14 @@ class salesRepository {
       total: 0
     });
 
-    today.setHours(0,0,0)
-    const [,countSalesToday] = await this.ormRepository.findAndCount({where: { created_at : { $gte : today }}});
-    console.log(countSalesToday)
+    today.setHours(0,0,0);
+
+    const [,countSalesToday] = await this.ormRepository.findAndCount({
+      where: {
+        created_at : { $gte : today },
+        shop_id: Number(shop_id)
+      }
+      });
 
     return { report: {
         totalSalesMoneyOnWeek,
