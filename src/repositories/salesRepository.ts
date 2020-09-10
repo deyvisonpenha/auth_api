@@ -8,7 +8,6 @@ import mongojs from 'mongojs';
 var ObjectId = mongojs.ObjectId;
 
 import Sales from '../models/Sales';
-import findByRangeDate from '../middlewares/findByRangeDate';
 
 interface Request {
   shop_id: number,
@@ -30,10 +29,6 @@ interface Request {
   documents: string,
   cupom_id: string,
   shop_name: string
-}
-
-interface Balance {
-  total: number;
 }
 
 @EntityRepository(Sales)
@@ -71,131 +66,6 @@ class salesRepository {
     const allSales = await this.ormRepository.find({ order: { created_at: -1 } });
 
     return allSales;
-  }
-
-  public async dashboardAdmin() {
-    const today = new Date();
-    const lastDay = today.getDay();
-    const currentMonth = today.getMonth();
-
-    var beginigOfWeek = new Date();
-    beginigOfWeek.setDate(beginigOfWeek.getDate() - lastDay);
-    beginigOfWeek.setHours(0, 0, 0);
-
-    var beginingOfMonth = new Date();
-    beginingOfMonth.setMonth(currentMonth, 1)
-    beginingOfMonth.setHours(0, 0, 0);
-
-    const salesOnWeek = await findByRangeDate(beginigOfWeek, today, this.ormRepository);
-
-  // fazer uma função para o reduce
-    const totalSalesMoneyOnWeek = salesOnWeek.reduce(
-        (accumulator: Balance, salesObject: Sales) => {
-            accumulator.total += salesObject.total;
-            accumulator.total = Number(accumulator.total.toFixed(2))
-
-            return accumulator;
-    }, {
-      total: 0
-    });
-
-    const salesOnMonth = await findByRangeDate(beginingOfMonth, today, this.ormRepository);
-
-    const totalSalesMoneyOnMonth = salesOnMonth.reduce(
-        (accumulator: Balance, salesObject: Sales) => {
-            accumulator.total += salesObject.total;
-            accumulator.total = Number(accumulator.total.toFixed(2))
-
-            return accumulator;
-    }, {
-      total: 0
-    });
-
-    today.setHours(0,0,0)
-    const [,countSalesToday] = await this.ormRepository.findAndCount({where: { created_at : { $gte : today }}});
-    console.log(countSalesToday)
-
-    return { report: {
-        totalSalesMoneyOnWeek,
-        totalSalesMoneyOnMonth,
-        countSalesToday
-    }}
-    //return totalSalesMoney;
-  }
-
-  public async dashboardShop(shop_id: string) {
-    const today = new Date();
-    const lastDay = today.getDay();
-    const currentMonth = today.getMonth();
-
-    var beginigOfWeek = new Date();
-    beginigOfWeek.setDate(beginigOfWeek.getDate() - lastDay);
-    beginigOfWeek.setHours(0, 0, 0);
-
-    var beginingOfMonth = new Date();
-    beginingOfMonth.setMonth(currentMonth, 1)
-    beginingOfMonth.setHours(0, 0, 0);
-
-    //const salesOnWeek = await (await findByRangeDate(beginigOfWeek, today, this.ormRepository));
-    const salesOnWeek = await this.ormRepository.find({
-        where: {
-                $and:[
-                    { created_at : { $gte : beginigOfWeek } },
-                    { created_at : { $lte: today } },
-                    { shop_id: Number(shop_id) }
-                ]
-            },
-        order: { created_at: -1 }
-        });
-
-  // fazer uma função para o reduce
-    const totalSalesMoneyOnWeek = salesOnWeek.reduce(
-        (accumulator: Balance, salesObject: Sales) => {
-            accumulator.total += salesObject.total;
-            accumulator.total = Number(accumulator.total.toFixed(2))
-
-            return accumulator;
-    }, {
-      total: 0
-    });
-
-    //const salesOnMonth = await findByRangeDate(beginingOfMonth, today, this.ormRepository);
-    const salesOnMonth = await this.ormRepository.find({
-        where: {
-                $and:[
-                    { created_at : { $gte : beginingOfMonth } },
-                    { created_at : { $lte: today } },
-                    { shop_id: Number(shop_id) }
-                ]
-            },
-        order: { created_at: -1 }
-        });
-
-    const totalSalesMoneyOnMonth = salesOnMonth.reduce(
-        (accumulator: Balance, salesObject: Sales) => {
-            accumulator.total += salesObject.total;
-            accumulator.total = Number(accumulator.total.toFixed(2))
-
-            return accumulator;
-    }, {
-      total: 0
-    });
-
-    today.setHours(0,0,0);
-
-    const [,countSalesToday] = await this.ormRepository.findAndCount({
-      where: {
-        created_at : { $gte : today },
-        shop_id: Number(shop_id)
-      }
-      });
-
-    return { report: {
-        totalSalesMoneyOnWeek,
-        totalSalesMoneyOnMonth,
-        countSalesToday
-    }}
-    //return totalSalesMoney;
   }
 
   public async allByUsers({ user_id }): Promise<Sales[]> {

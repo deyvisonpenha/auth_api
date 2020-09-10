@@ -19,19 +19,6 @@ salesRouter.get('/', async (request, response) => {
   return response.json(allSales);
 });
 
-salesRouter.get('/financial/admin', async (request, response)=> {
-  const salesRepository = getCustomRepository(SalesRepository);
-  const salesWeek = await salesRepository.dashboardAdmin()
-  return response.json(salesWeek);
-});
-
-salesRouter.get('/financial/shop/:shop_id', async (request, response)=> {
-  const { shop_id } = request.params;
-  const salesRepository = getCustomRepository(SalesRepository);
-  const salesWeek = await salesRepository.dashboardShop(shop_id)
-  return response.json(salesWeek);
-});
-
 salesRouter.get('/:user_id', async (request, response) => {
   const { user_id } = request.params;
 
