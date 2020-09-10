@@ -69,7 +69,7 @@ class financialReportRespository {
     const productsWithOutDuplicationWeek = mostFrequentlyProducts(salesOnWeek);
     const productsWithOutDuplicationMonth = mostFrequentlyProducts(salesOnMonth);
 
-    const [,countSalesByStatus] = await this.ormRepository.findAndCount({ where: {status: "Aguardando aceitação"}});
+    const [,countSalesByStatus] = await this.ormRepository.findAndCount({ where: {status: "Aguardando coleta"}});
 
 
     const [,countUserCreatedToday] = await this.UserOrmRepository.findAndCount({ where: {
@@ -158,7 +158,7 @@ class financialReportRespository {
 
     const [,countSalesByStatus] = await this.ormRepository.findAndCount({
       where: {
-        status: "Aguardando aceitação",
+        status: "Aguardando coleta",
         shop_id: Number(shop_id)
       }
     });
